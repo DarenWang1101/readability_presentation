@@ -1,0 +1,833 @@
+---
+title: "漢字圏と非漢字圏日本語教科書リーダビリティ研究"
+subtitle:  "ー長文テキストを対象にー"
+author: "王　簫影"
+date: "2023-11-03"
+institute: "大阪大学 人文学研究科言語文化研究専攻M2"
+execute:
+  echo: true
+from: markdown+emoji
+format: 
+  revealjs:
+    # theme: solarized
+    # smaller: true
+    # scrollable: true
+    slide-number: true
+    preview-links: auto
+    incremental: false
+    footer: ":book:"
+    # code-overflow: wrap
+    # revealjs-plugins:
+    #   - chalkboard
+    # include-in-header:
+    #   - text: 
+    #       \usepackage{physics}
+    html-math-method:
+      method: mathjax
+      url: "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML"
+jupyter: python3
+# pdf-engine: lualatex
+# documentclass: ltjsarticle
+# classoption: lualatex,ja=standard
+# editor: visual
+---
+
+# 目次
+
+::: incremental
+1. 研究背景
+2. 英語リーダビリティの先行研究
+3. 日本語リーダビリティの先行研究
+4. リサーチクエスチョン
+5. データとコーパス紹介
+6. 方法と結果
+7. 参考文献
+:::
+
+<!-- ## 研究背景📌
+
+::: {.incremental}
+- リーダビリティの定義
+- リーダビリティの発展
+- リーダビリティの研究手法
+:::
+
+:::footer
+:bookmark:
+::: -->
+
+## 研究背景📌 {auto-animate="true" .smaller}
+
+::: {.fragment fragment-index=1}
+::: {.fragment .highlight-blue}
+- リーダビリティの定義
+:::
+:::
+
+::: {.fragment fragment-index=1}
+- リーダビリティの発展
+:::
+
+::: {.fragment fragment-index=1}
+- リーダビリティの研究手法
+:::
+
+. . .
+
+<br/>
+
+### [リーダビリティ](https://en.wikipedia.org/wiki/Readability)とは❓
+リーダビリティは研究者や研究目的によって多様に定義されている。例えば：
+
+::: {.nonincremental}
+- surface-level indicators of text difficulty that can be calculated
+- complex cognitive processes that take place when reading a text are included
+:::
+
+<!-- ここではリーダビリティをテキストの読みやすさ、または読みにくさに指標を設定することができ、測 定できるものとして定義する。 -->
+
+:::footer
+:bookmark:
+:::
+
+
+## 研究背景📌 {auto-animate="true" .smaller}
+
+### [リーダビリティ](https://en.wikipedia.org/wiki/Readability)とは❓
+リーダビリティは研究者や研究目的によって多様に定義されている。例えば：
+
+::: {.nonincremental}
+- surface-level indicators of text difficulty that can be calculated
+- complex cognitive processes that take place when reading a text are included
+:::
+
+ここではリーダビリティをテキストの読みやすさ、または読みにくさに指標を設定することができ、測定できるものとして定義する。
+
+:::footer
+:bookmark:
+:::
+
+
+## 研究背景📌  {auto-animate="true" .smaller}
+
+::: {.fragment fragment-index=1}
+- リーダビリティの定義
+:::
+
+::: {.fragment fragment-index=1}
+::: {.fragment .highlight-blue}
+- リーダビリティの発展
+:::
+:::
+
+::: {.fragment fragment-index=1}
+- リーダビリティの研究手法
+:::
+
+. . .
+
+<br/>
+
+### リーダビリティの発展
+リーダビリティは19世紀60年代から発展しつづ、学術以外にも教育や出版などの領域で幅広く研究されている。
+
+英語が主体な時期を経って、アジア圏では日本語、中国語、などもそれを踏まえて、欧米言語の研究を継承した上で、それぞれ言語の特徴を焦点にリーダビリティ研究を展開している
+
+:::footer
+:bookmark:
+:::
+
+
+
+## 研究背景📌  {auto-animate="true" .smaller}
+
+::: {.fragment fragment-index=1}
+- リーダビリティの定義
+:::
+
+::: {.fragment fragment-index=1}
+- リーダビリティの発展
+:::
+
+::: {.fragment fragment-index=1}
+::: {.fragment .highlight-blue}
+- リーダビリティの研究手法
+:::
+:::
+. . .
+
+<br/>
+
+### リーダビリティの研究手法
+
+- traditional methods
+- methods inspired by cognitive science
+- methods based on the use of statistical language modeling tools
+
+言語資源がデジタル化されるにつれて、...
+
+- methods based on the use of large language models  ... ❓❗
+
+:::footer
+:bookmark:
+:::
+
+
+## 研究背景📌  {auto-animate="true" .smaller}
+
+### リーダビリティの研究手法
+
+- traditional methods
+- methods inspired by cognitive science
+- methods based on the use of statistical language modeling tools
+
+言語資源がデジタル化されるにつれて、オンラインのコーパスもしくは一部のエディタが自動的かつハイスピードで語の頻度集計や文長、語の長さなどの情報を提示してくれる。
+
+認知科学理論で簡単に集計できる指標だけではなく、段落の間の結合具合やなどといった内容のまとまり状況を測量する指標と文法の難易度をはかる指標などが開発される。
+
+コンピューターサイエンスの急速な発展と共に、統計言語モデル(SLMs)や、機械学習手法(ML)を応用したアルゴリズム(SVMs)が新たなアプローチ提示する。
+
+:::footer
+:bookmark:
+:::
+
+
+## 英語リーダビリティの先行研究🤝 {auto-animate="true" .smaller}
+
+::: {.r-fit-text}
+> The assumptions underlying traditional readability formulas are far too simplistic to account for the varied linguistic and textual factors that can differ widely, especially in adult texts (Bailin and Grafstein 2001; Schriver 2000).
+
+> Because of the rapid influx of newly designed procedures for analyzing text difficulty and matching readers and texts, educational researchers may either feel overwhelmed with the numerous options or may simply be tempted to stick with the classic methods they and their predecessors have used for decades. However, selecting appropriate texts for a population of readers requires some understanding of both the reader and the text, and different methods may be more or less appropriate for different types of texts and different populations of readers.(Benjamin, 2012)
+:::
+
+- 人気のある従来指標と次々と現れ尽きない新たなメソッド
+- テキストの種類と読者の特徴
+- 適切なマッチングをするにはテキストと対象読者に対する洞察が必要
+
+:::footer
+:bookmark_tabs:
+:::
+
+
+## 英語リーダビリティの先行研究🤝 {auto-animate="true" .smaller}
+
+- 人気のある従来指標と次々と現れ尽きない新たなメソッド
+
+::: {.fragment}
+- GFI/Guning fog index(1952) 
+
+::: {style="text-align: center;"}
+$$
+GFI = 0.4(\frac{totalWords}{totalSentences} + 100\frac{longWords}{totalSentences})
+$$
+:::
+:::
+
+
+:::{.fragment}
+- FRE/Flesch reading ease(1975)
+
+::: {style="text-align: center;"}
+$$
+FRE = 206.835-1.15(\frac{totalWords}{totalSentences}-84.6\frac{totalSyllables}{totalWords})
+$$
+:::
+:::
+
+<!-- 
+  - FKGL/Flesch-Kincaid grade level(1975)
+$$
+FKGL = 0.39(\frac{totalWords}{totalSentences})+11.8(\frac{totalSyllables}{totalWords})-15.59
+$$ -->
+
+::: {.fragment}
+
+- ARI/Automated readability index(1967)
+
+::: {style="text-align: center;"}
+$$
+ARI= 4.71(\frac{totalCharacters}{totalWords})+0.5(\frac{totalWords}{totalSentences})-21.43
+$$
+:::
+:::
+
+  <!-- - DCRF/the Dale-Chall readability formula(1948)
+$$
+DCRF = 0.1579(\frac{totalCharacters}{totalWords})+0.5(\frac{totalWords}{totalSentences})
+$$ -->
+
+  <!-- - SMOG/simple measure if Gobbledygook(1969)
+$$
+SMOG = 1.0430\sqrt{numberOfPolysyllables\frac{30}{totalSentences}}+3.1291
+$$ -->
+
+
+:::
+
+:::footer
+:bookmark_tabs:
+:::
+
+
+## 英語リーダビリティの先行研究🤝 {auto-animate="true" .smaller}
+
+::: {.r-fit-text}
+- 従来指標
+
+wide used, simple and popular but largly effected by the numbers of characters, words, sentences and syllables.
+
+> For example, if we compare the Newsela corpus and Slovenian SB corpus, which both cover roughly the same age group, we can see that for some readability indicators (FRE, FKGL, DCRF, and ASL) the values are on entirely different scales.(Martinc et al., 2021)
+
+- 認知科学理論の啓発から新たな測量メソッド
+
+> As connectionist (McClelland and Rumelhart 1981; Rumelhart and McClelland 1982), schema (e.g., Anderson and Pichert 1978), prototype (Rosch et al. 1976), and spreading activation (Anderson 1983) theories emerged to explain how humans store and retrieve information in long-term memory, some researchers who studied text processing began to hypothesize that text difficulty and readability were more related to coherence and the relationships between elements in a text rather than simply the sum or averages of individual surface features.(Benjamin, 2012)
+:::
+
+:::footer
+:bookmark_tabs:
+:::
+
+## 英語リーダビリティの先行研究🤝 {auto-animate="true" .smaller}
+
+- 認知科学理論の啓発から新たな測量メソッド
+
+
+
+
+:::footer
+:bookmark_tabs:
+:::
+
+
+## 日本語リーダビリティの先行研究🤝 
+
+
+(Shibasaki et al., 2010) :
+
+::: {.r-fit-text}
+year = -147.9 + (3.601E-4 * (hiragana / characters)) - (8.772E-2 * (hiragana / characters)^2) + (6.651 * (hiragana / characters)) + (3.679 * chunks) + (3.142E-4 * hiragana^2 * characters) - (3.986E-4 * hiragana^2 * chunks) - (3.207E-4 * characters^2) - (3.109E-2 * (hiragana / characters)) - (7.968E-3 * chunks^2) + (3.468E-3 * hiragana * characters * chunks)
+
+year = 学年 (this is the return value of the function).  
+hiragana / characters = hiragana-ratio = 平仮名の割合.
+characters = 文の平均文字数.   chunks = 文の平均文節数   predicates = 文の平均述語数
+
+(R2=.690、調整済みR2=.681、AIC=1409.201)
+:::
+
+<!-- <br/> -->
+
+
+(李在鎬, 2016) :
+
+::: {.r-fit-text}
+文章の読みやすさ={平均文長 * -0.056}+{漢語率 * -0.126}+{和語率 * -0.042}+{動詞率 * -0.145}+{助詞率 * -0.044}+11.724」
+
+(R2=.896) 
+:::
+
+
+
+:::footer
+:bookmark_tabs:
+:::
+
+## リサーチクエスチョン💡
+
+
+
+## データ紹介📎 {auto-animate="true" .smaller}
+
+
+![](img1.png){.absolute top="100" left="50"}
+
+![](img2.png){.absolute top="200" right="50"}
+
+![](img3.png){.absolute bottom="0" left="400"}
+
+
+:::footer
+:books:
+:::
+
+
+## データ紹介📎 {auto-animate="true" .smaller}
+
+
+![](img1.png){.absolute top="200" left="50"}
+
+:::footer
+:books:
+:::
+
+## データ紹介📎 {auto-animate="true" .smaller}
+
+
+![](img2.png){.absolute top="200" left="50"}
+
+:::footer
+:books:
+:::
+
+## データ紹介📎 {auto-animate="true" .smaller}
+
+
+![](img3.png){.absolute top="200" left="50"}
+
+:::footer
+:books:
+:::
+
+
+
+
+## コーパス構築📦
+
+:::: {.columns}
+
+::: {.column width="65%"}
+::: {.fragment fragment-index=1}
+#### 1. 画像データを収集
+:::
+
+::: {.fragment fragment-index=2}
+::: {style="text-align: left;"}
+⏬
+:::
+:::
+
+::: {.fragment fragment-index=3}
+#### 2. .pngを.txtに
+
+###### OCRと前処理
+:::
+
+::: {.fragment fragment-index=4}
+::: {style="text-align: left;"}
+⏬
+:::
+:::
+
+::: {.fragment fragment-index=5}
+#### 3. ファイル名を構造化に
+
+###### 同じフォーマットでメタ情報を記入
+:::
+:::
+
+::: {.column width="35%"}
+::: {.fragment fragment-index=6}
+*SomethingNew*
+:::
+:::
+
+::::
+
+
+:::footer
+:file_folder:
+:::
+
+
+
+## コーパス紹介📦 {.smaller}
+
+#### 教科書コーパスの情報:
+
+![](image.png){.absolute }
+
+
+<!-- ## コーパス紹介 {.smaller}
+
+#### 教科書コーパスの情報:
+
+<br/> -->
+
+<!-- 
+::: columns -->
+
+<!-- ::: {.r-fit-text} -->
+<!-- ::: {.column width="100%"} -->
+<!-- +-------------------------------+----------+---------------+--------------+-----------------+
+| 教科書名                      |文章数    |延べ語数       |平均延べ語数  |平均異なり語数   |
++===============================+==========+===============+==============+=================+
+| 中級日本語 カルテット I       | 30       |         11861 |          395 |             157 |
++-------------------------------+----------+---------------+--------------+-----------------+
+| 中級日本語 カルテット II      | 29       |         17155 |          591 |             217 |
++-------------------------------+----------+---------------+--------------+-----------------+
+| 学ぼう! にほんご 初中級       | 40       |          9057 |          226 |             100 |
++-------------------------------+----------+---------------+--------------+-----------------+
+| 学ぼう! にほんご 中級         | 40       |         15794 |          394 |             154 |
++-------------------------------+----------+---------------+--------------+-----------------+
+| 新版 中日交流標準日本語 中級上| 32       |         10372 |          324 |             128 |
++-------------------------------+----------+---------------+--------------+-----------------+
+| 新版 中日交流標準日本語 中級下| 32       |         13933 |          435 |             174 |
++-------------------------------+----------+---------------+--------------+-----------------+
+ -->
+
+
+<!-- ::: -->
+<!-- :::
+::: -->
+
+:::footer
+:file_folder:
+:::
+
+## 方法🔎  {auto-animate="true" .smaller}
+### 1.　従来指標を教科書コーパスにあてる
+
+- 形態素解析ツール（[Fugashi](https://github.com/polm/fugashi)）を使用
+- 従来指標と日本語リーダビリティ公式を計算する
+
+```{python}
+# pip install --no-binary fugashi fugashi
+import matplotlib.pyplot as plt
+import pandas as pd
+import re
+from statistics import stdev
+import math
+
+def __ttr(words):
+
+    return len(set(words)) / len(words)
+
+def __sttr(wordlist, winsize=50):
+ 
+    results = []
+    for i in range(int(len(wordlist)/winsize)):
+        results.append(__ttr(wordlist[i*winsize:(i*winsize)+winsize]))
+    return mean(results)
+```
+
+
+## 方法🔎  {auto-animate="true" .smaller}
+### 1.　従来指標を教科書コーパスにあてる
+- 従来指標と日本語リーダビリティ公式を計算する
+```{python}
+def get_jp_sent(my_data: str) -> int:
+
+    sent_detector = nltk.RegexpTokenizer(u'[^　！？。]*[！？。.\n]')
+    sents = sent_detector.tokenize(my_data)
+    num = len(sents)
+    return num
+
+
+def get_jp_chars(my_data: str) -> int:
+
+    chars = "".join(my_data)
+    num_char = len(chars)
+
+    return num_char
+
+
+
+def calcARI_jp(my_data: str, debug=False) -> float:
+
+    try:
+        # score_ARI = 21.43*(get_jp_chars(my_data))/len(get_jp_tok(my_data))+0.5*(len(get_jp_tok(my_data))/text_to_sentence(my_data))-21.43
+        chars = get_jp_chars(my_data)
+        tokens = len(get_jp_tok(my_data))
+        sentences = get_jp_sent(my_data)
+        score_ARI = 21.43*chars/tokens + 0.5*tokens/sentences - 21.43
+
+        if debug:
+            print(f"chars={chars}, tokens={tokens}, sentences={sentences}, socre_ARI={score_ARI}")
+
+        return score_ARI
+    except ZeroDivisionError:
+        return 0
+
+
+
+def calcratio_jp(my_data: str) -> float:
+
+    con_lst = ['名詞', '副詞', '形容詞', '動詞', '形状詞']
+    fun_lst = ['助動詞', '助詞']
+    num1 = 0
+    num2 = 0
+    tokens = tagger(my_data)
+
+    try:
+        for word in tokens:
+            if word.pos.split(',')[0] in con_lst:
+                num1 += 1
+
+        for word in tokens:
+            if word.pos.split(',')[0] in fun_lst:
+                num2 += 1
+
+        return num1/len(tokens)*100
+
+    except ZeroDivisionError:
+        return 0
+
+# Lee-readability と Shibazaki-redability の計算式
+
+
+def get_jp_chars(my_data: str) -> int:
+
+    chars = "".join(my_data)
+    num_char = len(chars)
+
+    return num_char
+
+
+def get_jp_tok(my_data: str) -> list[str]:
+
+    tokens = tagger(my_data)
+    token_strings = [token.surface for token in tokens]
+
+    return token_strings
+
+
+def text_to_sentence(text: str) -> list[str]:
+    sent_detector = nltk.RegexpTokenizer(u'[^　！？。]*[！？。.\n]')
+    sents = sent_detector.tokenize(text)
+    return sents
+
+
+
+from statistics import mean
+
+def calcLee(my_data: str, debug=False) -> float:
+
+    sents = text_to_sentence(my_data)
+
+    try:
+        sentence_lengths = []
+        for s in sents:
+            tokens_s = tagger(s)
+            sentence_lengths.append(len(tokens_s))
+
+        avechar = mean(sentence_lengths)
+
+        kannum = 0
+        wanum = 0
+        dnum = 0
+        jnum = 0
+
+        tokens = tagger(my_data)
+
+        for token in tokens:
+            if token.feature.goshu == '漢':
+                kannum += 1
+
+        for token in tokens:
+            if token.feature.goshu == '和':
+                wanum += 1
+
+        for word in tokens:
+            if word.pos.split(',')[0] == '動詞':
+                dnum += 1
+
+        for word in tokens:
+            if word.pos.split(',')[0] == '助詞':
+                jnum += 1
+
+        toknum = len(get_jp_tok(my_data))
+        # score = 11.724-0.056*avechar-0.126*(kannum/toknum)-0.042*(wanum/toknum)-0.145*(dnum/toknum)-0.044*(jnum/toknum)
+        score = 11.724-0.056*avechar-12.6*(kannum/toknum)-4.2*(wanum/toknum)-14.5*(dnum/toknum)-4.4*(jnum/toknum)
+
+        if debug:
+            print(f"avechar={avechar}, kannum={kannum}, wanum={wanum}, dnum={dnum}, jnum={jnum}, toknum={toknum}, score={score}")
+
+        return score
+
+    except ZeroDivisionError:
+        return 0
+
+
+
+
+
+def calc_shibazaki_chunk(my_data: str) -> int:
+
+    n = 0
+    # for i in my_data:
+    chunk = bunsetu_spans(nlp(my_data))
+    n = len(chunk)
+    n += n
+
+    return n
+
+
+
+
+
+KATAKANA = set(list('ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソ'
+                    'ゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペ'
+                    'ホボポマミムメモャヤュユョヨラリルレロワヲンーヮヰヱヵヶヴ'))
+
+HIRAGANA = set(list('ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすず'
+                    'せぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴ'
+                    'ふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろわ'
+                    'をんーゎゐゑゕゖゔ'))
+
+KANJI_RX = re.compile(r'[\u4e00-\u9fff]')
+
+from collections import defaultdict
+def count_character_types(text):
+    cmap = {
+        'katakana': 0,
+        'hiragana': 0,
+        'kanji': 0,
+        'other': 0,
+    }
+    katakana = 0
+    hiragana = 0
+    kanji = 0
+    other = 0
+
+    for c in text:
+        if c in KATAKANA:
+            katakana += 1
+        elif c in HIRAGANA:
+            hiragana += 1
+        elif KANJI_RX.match(c):
+            kanji += 1
+        else:
+            other += 1
+
+    return kanji, hiragana, katakana, other
+
+
+
+
+
+def calc_shibazaki_hiragana_ratio(my_data: str) -> float:
+
+    ratio = count_character_types(my_data)[1] / len(my_data)
+
+    return ratio
+
+
+def calc_shibazaki_predicates(my_data: str) -> int:
+    """
+    Predicate count（述語数）.
+    """
+
+    chunks = bunsetu_spans(nlp(my_data))
+    predicates = 0
+    for chunk in chunks:
+        found = False
+        for token in chunk:
+            pos = token.tag_.split("-")
+            pos_1 = pos[0]
+            if len(pos) > 1:
+                pos_2 = pos[1]
+            else:
+                pos_2 = ""
+            if (re.search(r"終止形-一般", inflection(token)) or
+                pos_1 == "動詞" or
+                (pos_1 == "助動詞" and token.text != "な" and
+                 any(x == token.lemma_ for x in ["だ", "です"])) or
+                pos_2 == "終助詞" or
+                pos_2 == "句点"):
+                found = True
+        if found:
+            predicates += 1
+
+    return predicates
+
+
+
+
+def calc_shibazaki_readability1(my_data: str, debug=False) -> float:
+    sents = text_to_sentence(my_data)
+    sentences = len(sents)
+    hiragana_ratio = calc_shibazaki_hiragana_ratio(my_data) * 100 #　Shibazaki_2014の表１に参照、平仮名の割合は0以上の有理数で表示されているためここは100をかける
+    predicates = calc_shibazaki_predicates(my_data) / sentences
+
+
+    year = + 14.016 \
+           - (0.145 * hiragana_ratio) \
+           + (0.587 * predicates)
+
+    if debug:
+        print(f"hiragana_ratio={hiragana_ratio}, predicates={predicates}, year={year}")
+
+    return year
+
+    
+```
+
+
+:::footer
+:bar_chart:
+:::
+
+## 結果📝 {.smaller}
+
+```{python}
+import glob
+
+readability = []
+for file_name in glob.glob(r"/textbook-data/*.txt"):
+    with open(file_name) as f:
+        text = f.read()
+        clean(text)
+    tokens = get_jp_tok(text)
+    measures = {
+        "Name" : file_name.rpartition('/')[-1],
+        "Textbook name" : file_name.split('/')[-2],
+        "TTR" : __ttr(tokens),
+        "STTR" : __sttr(tokens),
+        "ARI" : calcARI_jp(text),
+        "Lexical density" : calcratio_jp(text),
+        "Lee-formula" : calcLee(text),
+        "Shibazaki-formula-1" : calc_shibazaki_readability1(text) # 柴崎・玉岡(2010)によるリーダビリティ値, 範囲はなるべく表１と一致すべき
+    }
+    readability.append(measures)
+
+test_df = pd.DataFrame(readability)
+
+test_df
+```
+
+:::footer
+:bar_chart:
+:::
+
+## 結果📝 {.smaller}
+
+- 指標の相関
+
+```{python}
+#| echo: true
+
+test_df.corr()
+```
+
+
+
+:::footer
+:bar_chart:
+:::
+## まとめ📋
+
+
+
+## 参考文献 {.scrollable}
+
+::: {.r-fit-text}
+近藤陽介, 松吉俊, 佐藤理史, (2008):「教科書コーパスを用いた日本語テキストの難易度推定」:『言語処理学会第 14 回年次大会発表論文集』. 言語処理学会第 14 回年次大会: 1113-1116
+
+李在鎬, (2016):「日本語教育のための文章難易度に関する研究」. 早稲田日本語教育学 = Waseda studies in Japanese language education, (21): 1-16
+
+李在鎬, (2019):「BCCWJ に含まれる学校教科書コーパスの計量的分析」. 計量国語学, 32: (3): 147-162
+Benjamin, R. G., (2012): “Reconstructing Readability: Recent Developments and Recommendations in the Analysis of Text Difficulty.” Educ Psychol Rev, 24: 63-88. DOI: 10.1007/s10648-011-9181-8
+
+Hodošček, B., Abekawa, T., Murota, M., Nishina, K., (2012): “Readability of example sentences in writing assistance tool Natsume.” In: 5th International Conference on Computer Assisted Systems For Teaching & Learning Japanese (CASTEL/J). Nagoya, Japan: 1-4
+
+Lee, J h., HASEBE, Y., (2020): “Readability measurement of Japanese texts based on levelled corpora.” The Japanese Language from an Empirical Perspective, 143-168
+
+Martinc, M., Pollak, S., Robnik-Šikonja, M., (2021): “Supervised and Unsupervised Neural Approaches to Text Readability.” Computational Linguistics, 47: (1): 141-179. DOI: 10.1162/coli_a_00398
+
+Shibasaki, H., Hara, S., (2010): “Japanese Readability Formula for Discriminating K-12 Grade Level Texts.” Mathematical Linguistics, 27: (6): 215-232
+
+Tanaka-Ishii, K., Tezuka, S., Terada, H., (2010): “Sorting Texts by Readability.” Computational Linguistics, 36: (2): 203-227
+:::
+
+:::footer
+:book:
+:::
